@@ -46,56 +46,134 @@ int main(void){
             printf("Select difficulty (1-4): ");
             scanf("%d", &diffLevel);
         }
-Last login: Mon Sep 26 15:47:17 on ttys001
-News-MacBook-Pro:~ User$ ssh mschon@loki.ist.unomaha.edu
-systems administrator's mailing list: loki@pki.nebraska.edu
-mschon@loki.ist.unomaha.edu's password: 
-Welcome to loki (GNU/Linux 3.2.0-90-generic x86_64)
+ /*Function Calls for every question*/
+        for (i=1; i <= qNum; i++){
+            mainAnswer= genQuestion(diffLevel);
+            answerQuestion(mainAnswer);
+        }
+        printf("Your score was %d out of %d\n", correct, qNum);
+
+    return 1;
+}
+
+/*
+Function Name: genQuestion
+Parameters:     Difficulty level of questions
+Return Value(s): The answer to each question
+Partners: Tutor at CSLC
+Description:    This function generates each question from a randomized set of numbers, then calls another function to randomize possible operators. 
+*/
+
+int genQuestion(int difficulty){
+
+    /*Initializing function variables and setting them equal to a value that will not appear when they are handled*/
+        int num1 = 0;
+        int num2 = 0;
+        int opPick = -1;
+
+    /*Handles case by case based on difficulty level*/
+        switch (difficulty){
+
+            case 1:
+            /*Generates a random number from 1 to 10*/
+                num1 = (rand()%10) + 1;
+                num2 = (rand()%10) + 1;
+
+            /*Generates a random number to base opertation off of*/
+                opPick = rand()%4;
+
+               operationPicker(num1, num2, opPick);
+               break;
+
+            case 2:
+            /*Generates a random number from 1 to 50*/
+               num1 = (rand()%50) + 1;
+               num2 = (rand()%50) + 1;
+
+            /*Generates a random number to base operation off of*/
+               opPick = rand()%4;
+
+               operationPicker(num1, num2, opPick);
+               break;
+ case 3:
+            /*Generates a random number from 1 to 100*/
+               num1 = (rand()%100) + 1;
+               num2 = (rand()%100) + 1;
+
+            /*Generates a random number to base operation off of*/
+               opPick = rand()%4;
+
+               operationPicker(num1, num2, opPick);
+               break;
+
+            case 4:
+            /*Generates a random number from -100 to 100*/
+               num1 = (rand()%200) - 100;
+               num2 = (rand()%200) - 100;
+
+            /*Generates a random number to base operation off of*/
+               opPick = rand()%4;
+
+               operationPicker(num1, num2, opPick);
+               break;
+        }
+
+        return ans;
+}
+/*Function Name: operationPicker
+Parameters: Both numbers from the problem and the random number generated in genQuestion
+Return Value(s): The answer to each equation
+Partners: Tutor at CSLC
+Description: This function accepts a random number from 0-3, and from that number it choses whether to use addition, subtraction, mulitplication, or division between the numbers. It finds the answer to each problem.*/
 
 
-You have mail.
-Last login: Mon Sep 26 15:47:44 2016 from ip68-13-19-155.om.om.cox.net
-mschon@loki:~$ ls
-0                        mutt
-a.out                    MyLinkedList$1.class
-cProgHelloWorld.c        MyLinkedList.class
-CSCI1620-F15-PROG1       MyLinkedList.java
-CSCI1620-F15-PROG2       MyLinkedList$LinkedListIterator.class
-CSCI1620-F15-PROG3       MyLinkedList$Node.class
-CSCI1620-F15-PROG4       S15
-CSCI-2240-1-F16-A1       S15_1400_005
-CSCI-2240-D-s16-A0       S15_1400_006
-CSCI-2240-D-S16-A0       S15_1400_006_mschon
-CSCI-2240-D-S16-A1       S15_1400_006_prog
-CSCI-2240-D-S16-A2       S15_1400_006_prog0
-CSCI-2240-D-S16-A3       S15_1400_006_prog1
-CSCI-3320-DG-F16-A2      S15_1400_006_prog10
-CSCI-3320-DG-F16-A3      S15_1400_006_prog11
-CSCI-F15_AdventureBookk  S15_1400_006_prog12
-CSCI-F15-PROG4           S15_1400_006_prog2
-<ENTER>                  S15_1400_006_prog4
-first.java               S15_1400_006_prog5
-LinkedList.java          S15_1400_006_prog6
-Mail                     S15_1400_006_prog7
-mschon_first.java        S15_1400_006_prog8
-mschon_Life.java         S15_1400_006_prog9
-mschon_prog0.txt         S15_1400_prog11
-mschon_second            S15_1400_prog13
-mschon_second.class      sent
-mschon_second.java       TestLinkedList.class
-mschon@loki:~$ cd CSCI-2240-1-F16-A1/
-mschon@loki:~/CSCI-2240-1-F16-A1$ ls
-a.out  mathQuiz.c
-mschon@loki:~/CSCI-2240-1-F16-A1$ vim mathQuiz.c 
+int operationPicker(int n1, int n2, int pick){
+            /*Print equation and finds answer*/
+
+            /*Addition*/
+                if(pick == 0){
+                    printf("%d + %d\n", n1, n2);
+                    ans = n1 + n2;
+                }
+
+            /*Subtraction*/
+                if(pick == 1){
+                    printf("%d - %d\n", n1, n2);
+                    ans = n1 - n2;
+                }
+/*Multiplication*/
+                if(pick == 2){
+                    printf("%d * %d\n", n1, n2);
+                    ans = n1 * n2;
+                }
+
+            /*Division*/
+                if(pick == 3){
+                    printf("%d / %d\n", n1, n2);
+                    ans = n1 / n2;
+                }
+
+            /*Returns the answer to use in answerQuestion()*/
+                return ans;
+
+}
+
+/*
+Function Name: answerQuestion
+Parameters: The answer to each problem
+Return value(s): An indicator as to whether the user was correct, or not.
+Partners: Tutor at CSLC
+Description: This function prompts the user to answer the question. It then takes that input and compares to the answer to see if they were right or wrong.*/
 
 
+int answerQuestion(int a){
+                int input;
+                    /*indicator*/
 
+            /*Prompt user to type in their answer (input)*/
+                printf("Enter Answer: ");
 
-
-
-
-
-
+                scanf("%d", &input);
 
             /*Checks to see if answer was correct, indicates whether it was (1) or not (0)*/
                 if (a == input)
@@ -147,3 +225,4 @@ void response(int ind){
                     printf("The correct answer was %d \n", ans);
                 }
 }
+                                              
